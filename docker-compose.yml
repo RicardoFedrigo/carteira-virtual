@@ -1,9 +1,9 @@
 version: "3"
 
 services:
-  db:
+  postgres-db:
     image: postgres:latest
-    container_name: db
+    container_name: postgres-db
     restart: unless-stopped
     env_file: .env
     environment:
@@ -24,7 +24,7 @@ services:
     image: nodejs
     container_name: carteira-virtual-app
     links:
-      - "db"
+      - "postgres-db"
     restart: always
     env_file: .env
     environment:
@@ -37,7 +37,7 @@ services:
     volumes:
       - .:/usr/src/app
     depends_on:
-      - db
+      - postgres-db
     networks:
       - default
 
