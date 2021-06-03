@@ -1,26 +1,25 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "commonjs",
-    "sourceMap": true,
-    "outDir": "./build",
-    "moduleResolution": "node",
+    "target": "es2017",                          
+    "module": "commonjs",                     
+    "lib": ["es6"],                             
+    "allowJs": true,                       
+    "outDir": "./build",                        
+    "rootDir": "./src",                       
+    "removeComments": true,                
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/@types"
+    ],                          
+    "esModuleInterop": true,                  
     "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "removeComments": true,
-    "allowJs": true,
-    "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "experimentalDecorators": true,        
+    "emitDecoratorMetadata": true,         
+    "skipLibCheck": true,                     
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
   },
-  "exclude": [
-    "node_modules"
-  ],
   "include": [
-    "./src/**/*.ts"
+    "src/**/*"
   ]
 }
