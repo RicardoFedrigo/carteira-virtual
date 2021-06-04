@@ -8,7 +8,7 @@ export default class deposito {
     @inject("UsuarioRepository")
     private usuarioRepository: IUsuario
   ) {}
-  public async getUsuario(usuarioId: number): Promise<Usuario | Usuario[]> {
-    return await this.usuarioRepository.get(usuarioId);
+  public async getById(usuarioId: number): Promise<Usuario> {
+    return await this.usuarioRepository.getById(usuarioId);
   }
 }

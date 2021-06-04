@@ -1,3 +1,4 @@
 import criarUsuario from "./criarUsuario.service";
 import getUsuario from "./getUsuario.service";
-export { criarUsuario, getUsuario };
+import getById from "./getById.service"
+export { criarUsuario, getUsuario, getById };
