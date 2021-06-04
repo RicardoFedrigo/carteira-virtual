@@ -1,13 +1,13 @@
 import { Response, Request } from "express";
 import { container } from "tsyringe";
 import { createCategoria } from "../services/Categoria";
-import { getUsuario } from "../services/Usuario";
+import { getById} from "../services/Usuario";
 
 export default class UsuarioController {
   public async createOrUpdate(req: Request, res: Response): Promise<Response> {
     try {
       let { usuarioId, id, categoria } = req.body;
-      const usuario = await container.resolve(getUsuario).getUsuario(usuarioId);
+      const usuario = await container.resolve(getById).getById(usuarioId);
       const newCategoria = await container
         .resolve(createCategoria)
         .criaCarteira(usuario, categoria, id);
