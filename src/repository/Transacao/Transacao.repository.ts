@@ -1,15 +1,17 @@
+import { getRepository, Repository  } from "typeorm";
 import { Transacao } from "../../entity/Transacao.entity";
-import TransacaoDto from "../../interface/Transacao/Transacao.dto";
 import ITransacao from "../../interface/Transacao/Transacao.interface";
 
 export default class TransacaoRepository implements ITransacao {
-  get(id: String): Promise<Transacao> {
-    throw new Error("Method not implemented.");
+  private transacaoRepository: Repository<Transacao>;
+
+  constructor() {
+    this.transacaoRepository = getRepository(Transacao);
   }
-  delete(id: String): Promise<boolean> {
-    throw new Error("Method not implemented.");
+  novaTransacao(transacao: Transacao): Promise<Transacao> {
+    return this.transacaoRepository.save(transacao);
   }
-  historico(id: String): Promise<Transacao[]> {
+  get(id: number): Promise<Transacao> {
     throw new Error("Method not implemented.");
   }
 }

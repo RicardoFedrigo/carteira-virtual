@@ -1,18 +1,30 @@
+import { getRepository, Repository } from "typeorm";
 import { Carteira } from "../../entity/Carteira.entity";
-// import CarteiraDTO from "../../interface/Carteira.dto";
 import ICateira from "../../interface/Carteira/Carteira.interface";
 
 export default class CarteiraRepository implements ICateira {
-    get(id: String): Promise<Carteira> {
-        throw new Error("Method not implemented.");
-    }
-    getSaldo(id: String): Promise<Number> {
-        throw new Error("Method not implemented.");
-    }
-    delete(id: String): Promise<boolean> {
-        throw new Error("Method not implemented.");
-    }
-    operacao(valor: Number): Promise<boolean> {
-        throw new Error("Method not implemented.");
-    }
+  private carteiraRepository: Repository<Carteira>;
+
+  constructor() {
+    this.carteiraRepository = getRepository(Carteira);
+  }
+  save(carteira: Carteira): Promise<Carteira> {
+    return this.carteiraRepository.save(carteira);
+  }
+  public async criaCarteira(): Promise<Carteira> {
+    return await this.carteiraRepository.save({ saldo: 0 });
+  }
+
+  public async getSaldo(id: number): Promise<number> {
+    const { saldo } = await this.carteiraRepository.findOneOrFail({
+      where: { id },
+    });
+    return saldo;
+  }
+  public async get(id: number): Promise<Carteira> {
+    return await this.carteiraRepository.findOneOrFail({ where: { id } });
+  }
+  public async delete(id: number): Promise<boolean> {
+    throw new Error("Method not implemented.");
+  }
 }

@@ -1,4 +1,3 @@
-
 FROM node:lts-alpine
 
 LABEL MAINTAINER "Ricardo Fedrigo <ricardofedrigo1995@gmail.com>"

@@ -1,18 +1,30 @@
+//Modules
 import "reflect-metadata";
-import express from "express";
 import dotenv from "dotenv";
-import bodyHelmet from "body-parser";
 import helmet from "helmet";
+import bodyParser from "body-parser";
 import cors from "cors";
+import moment from "moment";
 
-dotenv.config();
+//Project
+import Server from "./infra/server";
+import typeOrm from "./infra/typeOrm";
+import MasterRouter from "./routes";
 
-import { createConnection } from "typeorm";
+import "./container";
+
 
 try {
-  const app = express();
+  
+  moment.locale("pt-br");
+  //Connection with db
+  new typeOrm().create();
 
-  const corsConfig = new cors({
+  dotenv.config({
+    path: ".env",
+  });
+
+  const corsConfig = cors({
     allowedHeaders: ["Origin", "Content-Type", "Accept", "X-Access-Token"],
     credentials: true,
     methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
@@ -24,12 +36,15 @@ try {
     preflightContinue: false,
   });
 
-  app.use(corsConfig);
-  app.use(helmet());
+  const server = new Server();
 
-  app.listen(process.env.PORT, () => {
-    return console.log(`Esta escutando na porta ${process.env.PORT}`);
-  });
+  server.setPort(process.env.PORT || 3000);
+
+  server.use(corsConfig);
+  server.use(bodyParser.json());
+  server.use(helmet());
+  server.use(new MasterRouter().router);
+  server.listen();
 } catch (error) {
   console.log(error);
 }
