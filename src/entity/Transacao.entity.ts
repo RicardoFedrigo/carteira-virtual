@@ -1,16 +1,30 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+} from "typeorm";
 import { Carteira } from "./Carteira.entity";
 
 //Enum
 import { tipoTransacao } from "../enum/TipoTransacao.enum";
+import { Categoria } from "./Categoria.entity";
 
 @Entity("Transacao")
 export class Transacao {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryGeneratedColumn("increment")
+  id: number;
 
   @Column()
-  saldo: string;
+  saldo_historico!: number;
+
+  @Column()
+  quantia!: number;
+
+  @Column()
+  observacao?: string;
 
   @Column("int")
   tipoTransacao: tipoTransacao;
@@ -18,6 +32,10 @@ export class Transacao {
   @Column({ type: "timestamptz" })
   dia_hora: Date;
 
+  @ManyToMany(() => Categoria, (categoria) => categoria.id)
+  @JoinTable()
+  categoria?: Carteira[];
+
   @ManyToOne(() => Carteira, (carteira) => carteira.id)
-  carteira: Carteira;
+  carteira!: Carteira;
 }

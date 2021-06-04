@@ -4,19 +4,18 @@ services:
   postgres-db:
     image: postgres:latest
     container_name: postgres-db
-    restart: unless-stopped
-    env_file: .env
+    restart: always
+    env_file: ./.env
     environment:
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB}
+      - POSTGRES_USER=${USERNAME}
+      - POSTGRES_PASSWORD=${PASSWORD}
+      - POSTGRES_DB=${DATABASE}
     ports:
       - "5432:5432"
     volumes:
-      - dbdata:/var/lib/postgresql/data
+      - dbdata:/var/lib/postgresql
     networks:
       - default
-
   app:
     build:
       context: .
@@ -26,12 +25,9 @@ services:
     links:
       - "postgres-db"
     restart: always
-    env_file: .env
+    env_file: ./.env
     environment:
-      - DB=${DB}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - PORT=${PORT}
+      - "PORT=${PORT}"
     ports:
       - "${PORT}:3000"
     volumes:

@@ -1,26 +1,14 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToOne,
-  JoinColumn,
-  OneToMany,
-} from "typeorm";
-import { Usuario } from "./Usuario.entity";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Transacao } from "./Transacao.entity";
 
 @Entity("Carteira")
 export class Carteira {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryGeneratedColumn("increment")
+  id: number;
 
   @Column()
-  saldo: string;
-
-  @OneToOne(() => Usuario, (usuario) => usuario.id)
-  @JoinColumn()
-  usuario: Usuario;
+  saldo: number;
 
   @OneToMany(() => Transacao, (transacao) => transacao.id)
-  transacao: Transacao;
+  transacao?: Transacao[];
 }
