@@ -4,10 +4,7 @@ import { container } from "tsyringe";
 import UsuarioRepository from "../repository/Usuario/Usuario.repository";
 import IUsuario from "../interface/Usuario/Usuario.interface";
 
-container.registerSingleton<IUsuario>(
-    "UsuarioRepository", 
-    UsuarioRepository
-);
+container.registerSingleton<IUsuario>("UsuarioRepository", UsuarioRepository);
 
 //Transacao
 import TransacaoRepository from "../repository/Transacao/Transacao.repository";
@@ -25,4 +22,13 @@ import ICarteira from "../interface/Carteira/Carteira.interface";
 container.registerSingleton<ICarteira>(
   "CarteiraRepository",
   CarteiraRepository
+);
+
+//Categoria
+import CategoriaRepository from "../repository/Categoria/Categoria.repository";
+import ICategoria from "../interface/Categoria/Categoria.interface";
+
+container.registerSingleton<ICategoria>(
+  "CategoriaRepository",
+  CategoriaRepository
 );

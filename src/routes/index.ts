@@ -1,12 +1,14 @@
 import { Router } from "express";
 import Carteira from "./Carteira.route";
 import Usuario from "./Usuario.route";
+import Categoria from "./Categoria.route";
 
 export default class MasterRouter {
   private routes: Router = Router();
 
-  private carteira: Router = Carteira;
   private usuario: Router = Usuario;
+  private carteira: Router = Carteira;
+  private categoria: Router = Categoria;
 
   constructor() {
     this.configure();
@@ -18,7 +20,8 @@ export default class MasterRouter {
     this.routes.use(routeName, routeController);
   }
   private configure() {
-    this.routeUse("/carteira", this.carteira);
     this.routeUse("/usuario", this.usuario);
+    this.routeUse("/carteira", this.carteira);
+    this.routeUse("/categoria", this.categoria);
   }
 }

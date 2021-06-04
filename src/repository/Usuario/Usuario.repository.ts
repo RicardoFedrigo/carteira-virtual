@@ -8,13 +8,15 @@ export default class UsuarioRepository implements IUsuario {
   constructor() {
     this.usuarioRepository = getRepository(Usuario);
   }
+  public async getById(id: number): Promise<Usuario> {
+    return await this.usuarioRepository.findOne({ where: { id } });
+  }
 
   public async criarUsuario(usuario: Usuario): Promise<Usuario> {
-    return this.usuarioRepository.save(usuario);
+    return await this.usuarioRepository.save(usuario);
   }
   public async get(id?: number, cpf?: string): Promise<Usuario> {
-    if (!id && !cpf) throw new Error("É necessario um cpf");
-    return await this.usuarioRepository.findOneOrFail({ where: { cpf, id } });
+    return await this.usuarioRepository.findOne({ where: { cpf, id } });
   }
   public async delete(id: number): Promise<boolean> {
     const resp = await this.usuarioRepository.delete({ id });
