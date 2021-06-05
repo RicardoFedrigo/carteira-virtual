@@ -1,14 +1,15 @@
 import { Response, Request } from "express";
 import { container } from "tsyringe";
 
-import {
-  
-}from "../services/Transacao/"
+import { getAllbyCarteira } from "../services/Transacao/";
+
 import {
   getCarteira,
   depositarCarteira,
   saqueCarteira,
 } from "../services/Carteira";
+
+import jsonToCsv from "../Utils/jsonToCsv";
 
 import { depositoTransacao, saqueTransacao } from "../services/Transacao";
 import { createCategoria } from "../services/Categoria";
@@ -27,7 +28,18 @@ export default class CarteiraController {
   public async exporta(req: Request, res: Response): Promise<Response> {
     try {
       const carteiraId = req.params.carteiraId;
-      // const carteira = await container.resolve(getCarteira).(+carteiraId);
+      const carteira = await container
+        .resolve(getCarteira)
+        .getCarteira(+carteiraId);
+      const transacoes = await container
+        .resolve(getAllbyCarteira)
+        .getAllbyCarteira(carteira);
+
+      return res
+        .status(200)
+        .attachment("transacoes.csv")
+        .send(jsonToCsv(JSON.stringify(transacoes), ","));
+
     } catch (error) {
       console.log(error);
       return res.status(error.status).send(error);

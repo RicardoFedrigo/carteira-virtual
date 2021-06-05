@@ -7,5 +7,6 @@ const carteira = new CarteiraController();
 router.post("/deposita", carteira.deposito);
 router.post("/saque", carteira.saque);
 router.get("/saldo/:id", carteira.saldo);
+router.get("/movimentacao/exporta/:carteiraId",carteira.exporta);
 
 export default router;

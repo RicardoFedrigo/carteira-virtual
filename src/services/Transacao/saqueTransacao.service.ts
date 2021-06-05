@@ -1,5 +1,5 @@
 import { injectable, inject } from "tsyringe";
-import moment from "moment";
+import dayjs from "dayjs";
 
 import { Transacao } from "../../entity/Transacao.entity";
 import { Carteira } from "../../entity/Carteira.entity";
@@ -22,7 +22,7 @@ export default class deposito {
   ): Promise<Transacao> {
     const transacao = new Transacao();
     transacao.carteira = carteira;
-    transacao.dia_hora = moment().toDate();
+    transacao.dia_hora = dayjs().toDate();
     transacao.observacao = observacao;
     transacao.saldo_historico = carteira.saldo;
     transacao.categoria = categorias;
