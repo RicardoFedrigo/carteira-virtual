@@ -6,6 +6,8 @@ import { Carteira } from "../../entity/Carteira.entity";
 import ITransacao from "../../interface/Transacao/Transacao.interface";
 
 import {tipoTransacao} from  "../../enum/TipoTransacao.enum"
+import { Categoria } from "../../entity/Categoria.entity";
+import { createCategoria } from "../Categoria";
 
 @injectable()
 export default class deposito {
@@ -16,13 +18,15 @@ export default class deposito {
   public async depositoTransacao(
     carteira: Carteira,
     valor: number,
-    observacao:string = ''
+    observacao:string = '',
+    categorias?:Categoria[]
   ): Promise<Transacao> {
     
     const transacao = new Transacao();
     transacao.carteira = carteira
     transacao.dia_hora = moment().toDate();
     transacao.observacao = observacao;
+    transacao.categoria = categorias;
     transacao.saldo_historico = carteira.saldo; 
     transacao.tipoTransacao = tipoTransacao.Entrada;
     transacao.quantia = valor;

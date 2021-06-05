@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import { container } from "tsyringe";
 import { createCategoria } from "../services/Categoria";
-import { getById} from "../services/Usuario";
+import { getById } from "../services/Usuario";
 
 export default class UsuarioController {
   public async createOrUpdate(req: Request, res: Response): Promise<Response> {
@@ -10,7 +10,7 @@ export default class UsuarioController {
       const usuario = await container.resolve(getById).getById(usuarioId);
       const newCategoria = await container
         .resolve(createCategoria)
-        .criaCarteira(usuario, categoria, id);
+        .createCategoria(usuario, categoria, id);
       return res.status(200).send(newCategoria);
     } catch (error) {
       console.log(error);
