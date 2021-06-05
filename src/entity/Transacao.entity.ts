@@ -34,7 +34,7 @@ export class Transacao {
 
   @ManyToMany(() => Categoria, (categoria) => categoria.id)
   @JoinTable()
-  categoria?: Carteira[];
+  categoria?: Categoria[];
 
   @ManyToOne(() => Carteira, (carteira) => carteira.id)
   carteira!: Carteira;
