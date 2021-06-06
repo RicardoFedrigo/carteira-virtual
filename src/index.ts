@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import cors from "cors";
-import moment from "moment";
+import dayjs from "dayjs";
 
 //Project
 import Server from "./infra/server";
@@ -13,11 +13,8 @@ import MasterRouter from "./routes";
 
 import "./container";
 
-
 try {
-  
-  moment.locale("pt-br");
-  //Connection with db
+  dayjs.locale("pt-br");
   new typeOrm().create();
 
   dotenv.config({

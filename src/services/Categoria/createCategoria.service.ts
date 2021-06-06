@@ -9,7 +9,7 @@ export default class saveOrUpdate {
     @inject("CategoriaRepository")
     private categoriaRepository: ICategoria
   ) {}
-  public async criaCarteira(
+  public async createCategoria(
     usuario: Usuario,
     categoria: string,
     id?: number
