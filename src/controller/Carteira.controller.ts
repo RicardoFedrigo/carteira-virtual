@@ -83,7 +83,6 @@ export default class CarteiraController {
       const tranHist = await container
         .resolve(getByPeriodo)
         .getByPeriodo(carteira, new Date(inicio), new Date(fim));
-      console.log(tranHist);
       return res
         .status(200)
         .attachment("transacoes.csv")
