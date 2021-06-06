@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import { container } from "tsyringe";
 
-import { getAllbyCarteira } from "../services/Transacao/";
+import { getAllbyCarteira, getByPeriodo } from "../services/Transacao/";
 
 import {
   getCarteira,
@@ -37,9 +37,58 @@ export default class CarteiraController {
 
       return res
         .status(200)
+        .contentType("text/csv")
         .attachment("transacoes.csv")
         .send(jsonToCsv(JSON.stringify(transacoes), ","));
+    } catch (error) {
+      console.log(error);
+      return res.status(error.status).send(error);
+    }
+  }
 
+  public async getByperiodo(req: Request, res: Response): Promise<Response> {
+    try {
+      const carteiraId = req.params.carteiraId;
+      const inicio = req.params.inicio;
+      const fim = req.params.fim;
+
+      const carteira = await container
+        .resolve(getCarteira)
+        .getCarteira(+carteiraId);
+
+      const tranHist = await container
+        .resolve(getByPeriodo)
+        .getByPeriodo(carteira, new Date(inicio), new Date(fim));
+
+      return res.status(200).send(tranHist);
+    } catch (error) {
+      console.log(error);
+      return res.status(error.status).send(error);
+    }
+  }
+
+  public async exportaByPeriodo(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
+    try {
+      const carteiraId = req.params.carteiraId;
+      const inicio = req.params.inicio;
+      const fim = req.params.fim;
+
+      const carteira = await container
+        .resolve(getCarteira)
+        .getCarteira(+carteiraId);
+
+      const tranHist = await container
+        .resolve(getByPeriodo)
+        .getByPeriodo(carteira, new Date(inicio), new Date(fim));
+      console.log(tranHist);
+      return res
+        .status(200)
+        .attachment("transacoes.csv")
+        .contentType("text/csv")
+        .send(jsonToCsv(JSON.stringify(tranHist), ","));
     } catch (error) {
       console.log(error);
       return res.status(error.status).send(error);
