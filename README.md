@@ -25,3 +25,34 @@ Carteira virtual com registro de transações de entrada e saida
 [Docker](https://www.docker.com/)
 
 # Requisitos 
+
+[Docker-compose](https://docs.docker.com/compose/)
+
+[Yarn](https://yarnpkg.com/) ou [Npm](https://www.npmjs.com/)
+
+[git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+# Como executar 
+
+## Baixe o projeto:
+```shell
+    git clone https://github.com/RicardoFedrigo/carteira-virtual
+```
+## Instale as dependências: 
+```shell
+    yarn install 
+    ou 
+    npm install
+```
+## Compile o projeto
+```shell
+    yarn build 
+    ou 
+    npm run build
+```
+
+## Suba os containers com docker-compose (Debian)
+```shell
+    docker-compose build 
+    ou 
+    docker-compose up -d
+```
