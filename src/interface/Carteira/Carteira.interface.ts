@@ -1,4 +1,4 @@
-import  Carteira  from "../../entity/Carteira.entity";
+import  { Carteira }  from "../../entity/Carteira.entity";
 
 export default interface ICarteira {
   get(id: number): Promise<Carteira | null>;

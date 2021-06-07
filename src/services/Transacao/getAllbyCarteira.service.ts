@@ -1,7 +1,7 @@
 import { injectable, inject } from "tsyringe";
-import  Carteira  from "../../entity/Carteira.entity";
+import { Carteira } from "../../entity/Carteira.entity";
 
-import  Transacao  from "../../entity/Transacao.entity";
+import { Transacao } from "../../entity/Transacao.entity";
 import ITransacao from "../../interface/Transacao/Transacao.interface";
 
 import jsonToCsv from "../../Utils/jsonToCsv";

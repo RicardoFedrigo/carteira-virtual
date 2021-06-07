@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import  Transacao  from "./Transacao.entity";
+import { Transacao } from "./Transacao.entity";
 
 @Entity("Carteira")
-export default class Carteira {
+export class Carteira {
   @PrimaryGeneratedColumn("increment")
   id: number;
 

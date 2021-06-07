@@ -1,7 +1,7 @@
 function dig(n1: string, n2: string, n3: string, n4?: string): string {
   let nums = n1.split("").concat(n2.split(""), n3.split(""));
-
-  if (n4 !== undefined) {
+  console.log("HERE")
+  if (n4) {
     nums[9] = n4;
   }
 

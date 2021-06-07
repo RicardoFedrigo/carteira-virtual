@@ -10,8 +10,7 @@ import {
 } from "../services/Carteira";
 
 import jsonToCsv from "../Utils/jsonToCsv";
-
-import Carteira from "../entity/Carteira.entity";
+import errorHandler from "../err/ErrorHandler";
 
 import { depositoTransacao, saqueTransacao } from "../services/Transacao";
 import { createCategoria } from "../services/Categoria";
@@ -21,10 +20,17 @@ export default class CarteiraController {
     try {
       const id = req.params.id;
       const carteira = await container.resolve(getCarteira).getCarteira(+id);
+      if (!carteira)
+        throw new errorHandler(404, "A carteira procurado não existe");
+
       return res.status(200).send(carteira);
     } catch (error) {
       console.log(error);
-      return res.status(500).send(error);
+      let err = error;
+      if (!error.status) {
+        err = new errorHandler(404, err.me);
+      }
+      return res.status(error.status).send(error);
     }
   }
 
@@ -34,6 +40,10 @@ export default class CarteiraController {
       const carteira = await container
         .resolve(getCarteira)
         .getCarteira(+carteiraId);
+
+      if (!carteira)
+        throw new errorHandler(404, "A carteira procurado não existe");
+
       const transacoes = await container
         .resolve(getAllbyCarteira)
         .getAllbyCarteira(carteira);
@@ -45,19 +55,24 @@ export default class CarteiraController {
         .send(jsonToCsv(JSON.stringify(transacoes), ","));
     } catch (error) {
       console.log(error);
+      let err = error;
+      if (!error.status) {
+        err = new errorHandler(404, err.message);
+      }
       return res.status(error.status).send(error);
     }
   }
 
   public async getByperiodo(req: Request, res: Response): Promise<Response> {
     try {
-      const carteiraId = req.params.carteiraId;
-      const inicio = req.params.inicio;
-      const fim = req.params.fim;
+      const { carteiraId, inicio, fim } = req.params;
 
       const carteira = await container
         .resolve(getCarteira)
         .getCarteira(+carteiraId);
+
+      if (!carteira)
+        throw new errorHandler(404, "A carteira procurado não existe");
 
       const tranHist = await container
         .resolve(getByPeriodo)
@@ -66,6 +81,10 @@ export default class CarteiraController {
       return res.status(200).send(tranHist);
     } catch (error) {
       console.log(error);
+      let err = error;
+      if (!error.status) {
+        err = new errorHandler(404, err.message);
+      }
       return res.status(error.status).send(error);
     }
   }
@@ -75,17 +94,19 @@ export default class CarteiraController {
     res: Response
   ): Promise<Response> {
     try {
-      const carteiraId = req.params.carteiraId;
-      const inicio = req.params.inicio;
-      const fim = req.params.fim;
+      const { carteiraId, inicio, fim } = req.params;
 
       const carteira = await container
         .resolve(getCarteira)
         .getCarteira(+carteiraId);
 
+      if (!carteira)
+        throw new errorHandler(404, "A carteira procurado não existe");
+
       const tranHist = await container
         .resolve(getByPeriodo)
         .getByPeriodo(carteira, new Date(inicio), new Date(fim));
+
       return res
         .status(200)
         .attachment("transacoes.csv")
@@ -93,6 +114,10 @@ export default class CarteiraController {
         .send(jsonToCsv(JSON.stringify(tranHist), ","));
     } catch (error) {
       console.log(error);
+      let err = error;
+      if (!error.status) {
+        err = new errorHandler(404, err.message);
+      }
       return res.status(error.status).send(error);
     }
   }
@@ -129,6 +154,11 @@ export default class CarteiraController {
 
       return res.status(200).send(resp);
     } catch (error) {
+      console.log(error);
+      let err = error;
+      if (!error.status) {
+        err = new errorHandler(404, err.message);
+      }
       return res.status(error.status).send(error);
     }
   }
@@ -164,6 +194,11 @@ export default class CarteiraController {
 
       return res.status(200).send(resp);
     } catch (error) {
+      console.log(error);
+      let err = error;
+      if (!error.status) {
+        err = new errorHandler(404, err.message);
+      }
       return res.status(error.status).send(error);
     }
   }

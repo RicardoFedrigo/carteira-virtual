@@ -1,6 +1,6 @@
 import { Between, getRepository, Repository } from "typeorm";
-import Carteira  from "../../entity/Carteira.entity";
-import Transacao  from "../../entity/Transacao.entity";
+import { Carteira } from "../../entity/Carteira.entity";
+import { Transacao } from "../../entity/Transacao.entity";
 import ITransacao from "../../interface/Transacao/Transacao.interface";
 
 export default class TransacaoRepository implements ITransacao {
@@ -24,8 +24,11 @@ export default class TransacaoRepository implements ITransacao {
       where: { carteira: carteira },
     });
   }
-  getByPeriodo(carteira: Carteira, inicio: Date, fim: Date): Promise<Transacao[]>{
-
+  getByPeriodo(
+    carteira: Carteira,
+    inicio: Date,
+    fim: Date
+  ): Promise<Transacao[]> {
     return this.transacaoRepository.find({
       select: [
         "saldo_historico",
@@ -34,10 +37,10 @@ export default class TransacaoRepository implements ITransacao {
         "tipoTransacao",
         "dia_hora",
       ],
-      where:{
+      where: {
         carteira,
-        dia_hora:Between(inicio,fim)
-      }
+        dia_hora: Between(inicio, fim),
+      },
     });
   }
 }

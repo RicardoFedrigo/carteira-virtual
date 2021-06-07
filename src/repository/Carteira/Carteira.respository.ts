@@ -1,5 +1,5 @@
 import { getRepository, Repository } from "typeorm";
-import  Carteira  from "../../entity/Carteira.entity";
+import { Carteira } from "../../entity/Carteira.entity";
 import ICateira from "../../interface/Carteira/Carteira.interface";
 
 export default class CarteiraRepository implements ICateira {

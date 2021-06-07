@@ -1,13 +1,13 @@
 {
   "type": "postgres",
-  "host": "postgres-db",
+  "host": "localhost",
   "port": 5432,
   "username": "postgres",
   "password": "admin123",
   "database": "carteiraVirtual",
   "synchronize": true,
   "logging": false,
-  "entities": ["build/**/*.entity.js"],
+  "entities": ["build/src/entity/*.js"],
   "migrations": ["src/migration/**/*{.ts,.js}"],
   "subscribers": ["src/subscriber/**/*{.ts,.js}"],
   "cli": {

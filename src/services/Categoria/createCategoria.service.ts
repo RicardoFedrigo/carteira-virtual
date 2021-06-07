@@ -1,6 +1,6 @@
 import { injectable, inject } from "tsyringe";
-import  Categoria  from "../../entity/Categoria.entity";
-import  Usuario  from "../../entity/Usuario.entity";
+import { Categoria } from "../../entity/Categoria.entity";
+import { Usuario } from "../../entity/Usuario.entity";
 
 import ICategoria from "../../interface/Categoria/Categoria.interface";
 @injectable()
