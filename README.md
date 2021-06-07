@@ -75,11 +75,10 @@ Carteira virtual com registro de transações de entrada e saida
 ```
 
 ### 4.1 Notas para execução:
-Caso deseje executar o programa fora do docker para um banco diferente, tem de mudar o host as seguinte configuração no arquivo ormconfig.json:
+Caso deseje executar o programa fora do docker para um banco diferente ou host o seguinte a arquivo ormconfig.json:
 ```json
   "host": <HOST>,
 ```
-Notas
 
 ### Possiveis problemas:
 Caso ocorra o seguinte problema:
