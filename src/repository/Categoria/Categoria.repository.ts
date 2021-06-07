@@ -1,5 +1,5 @@
 import { getRepository, Repository } from "typeorm";
-import { Categoria } from "../../entity/Categoria.entity";
+import  Categoria  from "../../entity/Categoria.entity";
 import ICategoria from "../../interface/Categoria/Categoria.interface";
 
 export default class CategoriaRepository implements ICategoria {

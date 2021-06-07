@@ -1,5 +1,5 @@
 import { injectable, inject } from "tsyringe";
-import { Usuario } from "../../entity/Usuario.entity";
+import Usuario  from "../../entity/Usuario.entity";
 import IUsuario from "../../interface/Usuario/Usuario.interface";
 
 @injectable()

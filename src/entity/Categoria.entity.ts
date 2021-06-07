@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { Usuario } from "./Usuario.entity";
+import  Usuario  from "./Usuario.entity";
 
-@Entity("Categoria")
-export class Categoria {
+@Entity({name:"Categoria",})
+export default class Categoria {
   @PrimaryGeneratedColumn("increment")
   id: number;
 

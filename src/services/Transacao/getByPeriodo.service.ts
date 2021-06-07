@@ -1,6 +1,5 @@
 import { injectable, inject } from "tsyringe";
 import  Carteira  from "../../entity/Carteira.entity";
-
 import  Transacao  from "../../entity/Transacao.entity";
 import ITransacao from "../../interface/Transacao/Transacao.interface";
 
@@ -12,7 +11,11 @@ export default class deposito {
     @inject("TransacaoRepository")
     private transacaoRepository: ITransacao
   ) {}
-  public async getAllbyCarteira(carteira: Carteira): Promise<Transacao[]> {
-    return await this.transacaoRepository.getAllbyCarteira(carteira);
+  public async getByPeriodo(
+    carteira: Carteira,
+    inicio: Date,
+    fim: Date
+  ): Promise<Transacao[]> {
+    return await this.transacaoRepository.getByPeriodo(carteira, inicio, fim);
   }
 }

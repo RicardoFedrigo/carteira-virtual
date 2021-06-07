@@ -1,4 +1,4 @@
-import { Usuario } from "../../entity/Usuario.entity";
+import Usuario  from "../../entity/Usuario.entity";
 
 export default interface IUsuario {
   get(id?: number, cpf?: string): Promise<Usuario>;

@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import cors from "cors";
-import moment from "moment";
+import dayjs from "dayjs";
 
 //Project
 import Server from "./infra/server";
@@ -13,38 +13,32 @@ import MasterRouter from "./routes";
 
 import "./container";
 
+dayjs.locale("pt-br");
+new typeOrm().create();
 
-try {
-  
-  moment.locale("pt-br");
-  //Connection with db
-  new typeOrm().create();
+dotenv.config({
+  path: ".env",
+});
 
-  dotenv.config({
-    path: ".env",
-  });
+const corsConfig = cors({
+  allowedHeaders: ["Origin", "Content-Type", "Accept", "X-Access-Token"],
+  credentials: true,
+  methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
+  origin: [
+    "http://localhost:8080",
+    "https://localhost:8080",
+    "http://localhost",
+  ],
+  preflightContinue: false,
+});
 
-  const corsConfig = cors({
-    allowedHeaders: ["Origin", "Content-Type", "Accept", "X-Access-Token"],
-    credentials: true,
-    methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-    origin: [
-      "http://localhost:8080",
-      "https://localhost:8080",
-      "http://localhost",
-    ],
-    preflightContinue: false,
-  });
+const server = new Server();
 
-  const server = new Server();
+server.setPort(process.env.PORT || 3000);
 
-  server.setPort(process.env.PORT || 3000);
+server.use(corsConfig);
+server.use(bodyParser.json());
+server.use(helmet());
+server.use(new MasterRouter().router);
 
-  server.use(corsConfig);
-  server.use(bodyParser.json());
-  server.use(helmet());
-  server.use(new MasterRouter().router);
-  server.listen();
-} catch (error) {
-  console.log(error);
-}
+export default server.listen();

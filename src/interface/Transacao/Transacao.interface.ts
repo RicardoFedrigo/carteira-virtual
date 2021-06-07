@@ -1,6 +1,8 @@
-import { Transacao } from "../../entity/Transacao.entity";
+import Carteira  from "../../entity/Carteira.entity";
+import Transacao  from "../../entity/Transacao.entity";
 
 export default interface ITransacao {
-  get(id: number): Promise<Transacao | null>;
   novaTransacao(transacao: Transacao): Promise<Transacao>;
+  getAllbyCarteira(carteira: Carteira): Promise<Transacao[]>
+  getByPeriodo(carteira: Carteira, inicio: Date, fim: Date): Promise<Transacao[]>
 }

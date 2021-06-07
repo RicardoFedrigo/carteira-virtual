@@ -1,5 +1,5 @@
 import { injectable, inject } from "tsyringe";
-import { Carteira } from "../../entity/Carteira.entity";
+import  Carteira  from "../../entity/Carteira.entity";
 
 import ICarteira from "../../interface/Carteira/Carteira.interface";
 @injectable()

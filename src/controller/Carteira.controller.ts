@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import { container } from "tsyringe";
 
-import { getAllbyCarteira } from "../services/Transacao/";
+import { getAllbyCarteira, getByPeriodo } from "../services/Transacao/";
 
 import {
   getCarteira,
@@ -10,6 +10,8 @@ import {
 } from "../services/Carteira";
 
 import jsonToCsv from "../Utils/jsonToCsv";
+
+import Carteira from "../entity/Carteira.entity";
 
 import { depositoTransacao, saqueTransacao } from "../services/Transacao";
 import { createCategoria } from "../services/Categoria";
@@ -21,7 +23,8 @@ export default class CarteiraController {
       const carteira = await container.resolve(getCarteira).getCarteira(+id);
       return res.status(200).send(carteira);
     } catch (error) {
-      return res.status(error.status).send(error);
+      console.log(error);
+      return res.status(500).send(error);
     }
   }
 
@@ -37,9 +40,57 @@ export default class CarteiraController {
 
       return res
         .status(200)
+        .contentType("text/csv")
         .attachment("transacoes.csv")
         .send(jsonToCsv(JSON.stringify(transacoes), ","));
+    } catch (error) {
+      console.log(error);
+      return res.status(error.status).send(error);
+    }
+  }
 
+  public async getByperiodo(req: Request, res: Response): Promise<Response> {
+    try {
+      const carteiraId = req.params.carteiraId;
+      const inicio = req.params.inicio;
+      const fim = req.params.fim;
+
+      const carteira = await container
+        .resolve(getCarteira)
+        .getCarteira(+carteiraId);
+
+      const tranHist = await container
+        .resolve(getByPeriodo)
+        .getByPeriodo(carteira, new Date(inicio), new Date(fim));
+
+      return res.status(200).send(tranHist);
+    } catch (error) {
+      console.log(error);
+      return res.status(error.status).send(error);
+    }
+  }
+
+  public async exportaByPeriodo(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
+    try {
+      const carteiraId = req.params.carteiraId;
+      const inicio = req.params.inicio;
+      const fim = req.params.fim;
+
+      const carteira = await container
+        .resolve(getCarteira)
+        .getCarteira(+carteiraId);
+
+      const tranHist = await container
+        .resolve(getByPeriodo)
+        .getByPeriodo(carteira, new Date(inicio), new Date(fim));
+      return res
+        .status(200)
+        .attachment("transacoes.csv")
+        .contentType("text/csv")
+        .send(jsonToCsv(JSON.stringify(tranHist), ","));
     } catch (error) {
       console.log(error);
       return res.status(error.status).send(error);
@@ -56,7 +107,7 @@ export default class CarteiraController {
       if (!carteira) return res.status(404).send("Carteira inexistente");
 
       if (categorias) {
-        cat = categorias.map((categoria) =>
+        cat = categorias.map((categoria: any) =>
           container
             .resolve(createCategoria)
             .createCategoria(
@@ -88,7 +139,7 @@ export default class CarteiraController {
       if (valor < 0) throw new Error("Valor invalido");
 
       if (categorias) {
-        cat = categorias.map((categoria) =>
+        cat = categorias.map((categoria: any) =>
           container
             .resolve(createCategoria)
             .createCategoria(
