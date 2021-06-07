@@ -3,7 +3,7 @@ import http from "http";
 
 export default class Server {
   private app = express();
-  private port: string;
+  private port: string | number;
 
   public use(module: any): void {
     this.app.use(module);
@@ -15,7 +15,7 @@ export default class Server {
     );
   }
 
-  public setPort(port: any): void {
+  public setPort(port: string | number): void {
     this.port = port;
   }
 }

@@ -6,14 +6,14 @@ import {
   ManyToMany,
   JoinTable,
 } from "typeorm";
-import { Carteira } from "./Carteira.entity";
+import Carteira from "./Carteira.entity";
 
 //Enum
 import { tipoTransacao } from "../enum/TipoTransacao.enum";
-import { Categoria } from "./Categoria.entity";
+import Categoria  from "./Categoria.entity";
 
 @Entity("Transacao")
-export class Transacao {
+export default class Transacao {
   @PrimaryGeneratedColumn("increment")
   id: number;
 

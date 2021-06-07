@@ -1,4 +1,4 @@
-export default function name(transacoes: string, separador: string[0]) {
+export default function (transacoes: string, separador: string[0]) {
   const json = JSON.parse(transacoes);
   let i = 1;
   let str = i + separador + "";
@@ -9,5 +9,6 @@ export default function name(transacoes: string, separador: string[0]) {
     Object.values(obj).map((t) => (line += t + separador));
     str += line + "\r\n";
   }
+
   return str;
 }

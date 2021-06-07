@@ -6,11 +6,11 @@ import {
   JoinColumn,
   OneToMany,
 } from "typeorm";
-import { Carteira } from "./Carteira.entity";
-import { Categoria } from "./Categoria.entity";
+import  Carteira  from "./Carteira.entity";
+import  Categoria  from "./Categoria.entity";
 
 @Entity("Usuario")
-export class Usuario {
+export default class Usuario {
   @PrimaryGeneratedColumn()
   id!: number;
 

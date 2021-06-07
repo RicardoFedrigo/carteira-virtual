@@ -1,12 +1,12 @@
 import { injectable, inject } from "tsyringe";
 import dayjs from "dayjs";
 
-import { Transacao } from "../../entity/Transacao.entity";
-import { Carteira } from "../../entity/Carteira.entity";
+import Transacao from "../../entity/Transacao.entity";
+import Carteira from "../../entity/Carteira.entity";
 import ITransacao from "../../interface/Transacao/Transacao.interface";
 
 import { tipoTransacao } from "../../enum/TipoTransacao.enum";
-import { Categoria } from "../../entity/Categoria.entity";
+import Categoria from "../../entity/Categoria.entity";
 import { createCategoria } from "../Categoria";
 
 @injectable()
