@@ -79,6 +79,8 @@ Caso deseje executar o programa fora do docker para um banco diferente ou host o
 ```json
   "host": <HOST>,
 ```
+## Rotas exemplo Postman
+[Carteira virtual 0.0.1](https://ricardofedrigo.postman.co/workspace/My-Workspace~c5f38e02-92e5-4b6b-8f02-af6a5507892b/documentation/14496084-694176ee-0904-4e31-8601-bdec1d69256d)
 
 ### Possiveis problemas:
 Caso ocorra o seguinte problema:
