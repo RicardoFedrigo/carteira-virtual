@@ -5,12 +5,32 @@ services:
     image: postgres:latest
     container_name: postgres-db
     restart: always
-    env_file: ./.env
     environment:
-      - POSTGRES_USER=${USERNAME}
-      - POSTGRES_PASSWORD=${PASSWORD}
-      - POSTGRES_DB=${DATABASE}
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_DB=carteiraVirtual
     ports:
       - "5432:5432"
+    networks:
+      - default
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: carteira-virtual-app
+    links:
+      - "postgres-db"
+    restart: always
+    ports:
+      - "3000:3000"
     volumes:
-      - dbdata:/var/lib/postgresql
+      - .:/usr/src/app
+    depends_on:
+      - postgres-db
+    networks:
+      - default
+
+networks:
+  default:
