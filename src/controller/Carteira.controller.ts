@@ -14,6 +14,7 @@ import errorHandler from "../err/ErrorHandler";
 
 import { depositoTransacao, saqueTransacao } from "../services/Transacao";
 import { createCategoria } from "../services/Categoria";
+import { isNull } from "util";
 
 export default class CarteiraController {
   public async saldo(req: Request, res: Response): Promise<Response> {
@@ -47,12 +48,15 @@ export default class CarteiraController {
       const transacoes = await container
         .resolve(getAllbyCarteira)
         .getAllbyCarteira(carteira);
+      let csv = transacoes.length
+        ? jsonToCsv(JSON.stringify(transacoes), ",")
+        : "Não existe movimentação";
 
       return res
         .status(200)
         .contentType("text/csv")
         .attachment("transacoes.csv")
-        .send(jsonToCsv(JSON.stringify(transacoes), ","));
+        .send(csv);
     } catch (error) {
       console.log(error);
       let err = error;
@@ -66,7 +70,6 @@ export default class CarteiraController {
   public async getByperiodo(req: Request, res: Response): Promise<Response> {
     try {
       const { carteiraId, inicio, fim } = req.params;
-
       const carteira = await container
         .resolve(getCarteira)
         .getCarteira(+carteiraId);
@@ -107,11 +110,14 @@ export default class CarteiraController {
         .resolve(getByPeriodo)
         .getByPeriodo(carteira, new Date(inicio), new Date(fim));
 
+      let csv = tranHist.length
+        ? jsonToCsv(JSON.stringify(tranHist), ",")
+        : "Não existe movimentação";
       return res
         .status(200)
         .attachment("transacoes.csv")
         .contentType("text/csv")
-        .send(jsonToCsv(JSON.stringify(tranHist), ","));
+        .send(csv);
     } catch (error) {
       console.log(error);
       let err = error;

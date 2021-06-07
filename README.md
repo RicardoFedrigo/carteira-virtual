@@ -22,9 +22,9 @@ Carteira virtual com registro de transações de entrada e saida
 
 [PostgreSql](https://www.postgresql.org/)
 
+# Requisitos
+ 
 [Docker](https://www.docker.com/)
-
-# Requisitos 
 
 [Docker-compose](https://docs.docker.com/compose/)
 

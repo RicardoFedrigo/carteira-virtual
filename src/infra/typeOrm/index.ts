@@ -5,13 +5,15 @@ import {
   getConnection,
 } from "typeorm";
 
+import { Carteira } from "../../entity/Carteira.entity";
+import { Categoria } from "../../entity/Categoria.entity";
+import { Transacao } from "../../entity/Transacao.entity";
+import { Usuario } from "../../entity/Usuario.entity";
+
 export default class ConnectionPostgres {
   async create(): Promise<Connection> {
-    const connectionOptions = await getConnectionOptions();
-    const connection = await createConnection({
-      ...connectionOptions,
-      name: "default",
-    });
+    let connectionOptions = await getConnectionOptions();
+    const connection = await createConnection(connectionOptions);
     return connection;
   }
 

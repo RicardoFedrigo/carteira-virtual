@@ -1,4 +1,4 @@
-export default function (transacoes: string, separador: string[0]) {
+export default function (transacoes: any, separador: string[0])  {
   const json = JSON.parse(transacoes);
   let i = 1;
   let str = i + separador + "";
