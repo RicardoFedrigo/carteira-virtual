@@ -22,7 +22,7 @@
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "esModuleInterop": true,
     "types": ["node", "jest"],
     "noImplicitAny": true,
