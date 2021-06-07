@@ -13,35 +13,32 @@ import MasterRouter from "./routes";
 
 import "./container";
 
-try {
-  dayjs.locale("pt-br");
-  new typeOrm().create();
+dayjs.locale("pt-br");
+new typeOrm().create();
 
-  dotenv.config({
-    path: ".env",
-  });
+dotenv.config({
+  path: ".env",
+});
 
-  const corsConfig = cors({
-    allowedHeaders: ["Origin", "Content-Type", "Accept", "X-Access-Token"],
-    credentials: true,
-    methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-    origin: [
-      "http://localhost:8080",
-      "https://localhost:8080",
-      "http://localhost",
-    ],
-    preflightContinue: false,
-  });
+const corsConfig = cors({
+  allowedHeaders: ["Origin", "Content-Type", "Accept", "X-Access-Token"],
+  credentials: true,
+  methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
+  origin: [
+    "http://localhost:8080",
+    "https://localhost:8080",
+    "http://localhost",
+  ],
+  preflightContinue: false,
+});
 
-  const server = new Server();
+const server = new Server();
 
-  server.setPort(process.env.PORT || 3000);
+server.setPort(process.env.PORT || 3000);
 
-  server.use(corsConfig);
-  server.use(bodyParser.json());
-  server.use(helmet());
-  server.use(new MasterRouter().router);
-  server.listen();
-} catch (error) {
-  console.log(error);
-}
+server.use(corsConfig);
+server.use(bodyParser.json());
+server.use(helmet());
+server.use(new MasterRouter().router);
+
+export default server.listen();

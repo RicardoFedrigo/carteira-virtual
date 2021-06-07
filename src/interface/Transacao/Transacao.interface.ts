@@ -1,5 +1,5 @@
-import { Carteira } from "../../entity/Carteira.entity";
-import { Transacao } from "../../entity/Transacao.entity";
+import Carteira  from "../../entity/Carteira.entity";
+import Transacao  from "../../entity/Transacao.entity";
 
 export default interface ITransacao {
   novaTransacao(transacao: Transacao): Promise<Transacao>;

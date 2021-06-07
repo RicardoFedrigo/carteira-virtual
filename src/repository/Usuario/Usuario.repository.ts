@@ -1,5 +1,5 @@
 import { getRepository, Repository } from "typeorm";
-import { Usuario } from "../../entity/Usuario.entity";
+import Usuario from "../../entity/Usuario.entity";
 import IUsuario from "../../interface/Usuario/Usuario.interface";
 
 export default class UsuarioRepository implements IUsuario {

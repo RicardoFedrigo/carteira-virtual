@@ -1,6 +1,6 @@
 import { Between, getRepository, Repository } from "typeorm";
-import { Carteira } from "../../entity/Carteira.entity";
-import { Transacao } from "../../entity/Transacao.entity";
+import Carteira  from "../../entity/Carteira.entity";
+import Transacao  from "../../entity/Transacao.entity";
 import ITransacao from "../../interface/Transacao/Transacao.interface";
 
 export default class TransacaoRepository implements ITransacao {

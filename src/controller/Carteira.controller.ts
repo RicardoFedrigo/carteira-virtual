@@ -11,6 +11,8 @@ import {
 
 import jsonToCsv from "../Utils/jsonToCsv";
 
+import Carteira from "../entity/Carteira.entity";
+
 import { depositoTransacao, saqueTransacao } from "../services/Transacao";
 import { createCategoria } from "../services/Categoria";
 
@@ -21,7 +23,8 @@ export default class CarteiraController {
       const carteira = await container.resolve(getCarteira).getCarteira(+id);
       return res.status(200).send(carteira);
     } catch (error) {
-      return res.status(error.status).send(error);
+      console.log(error);
+      return res.status(500).send(error);
     }
   }
 
@@ -104,7 +107,7 @@ export default class CarteiraController {
       if (!carteira) return res.status(404).send("Carteira inexistente");
 
       if (categorias) {
-        cat = categorias.map((categoria) =>
+        cat = categorias.map((categoria: any) =>
           container
             .resolve(createCategoria)
             .createCategoria(
@@ -136,7 +139,7 @@ export default class CarteiraController {
       if (valor < 0) throw new Error("Valor invalido");
 
       if (categorias) {
-        cat = categorias.map((categoria) =>
+        cat = categorias.map((categoria: any) =>
           container
             .resolve(createCategoria)
             .createCategoria(
